@@ -48,10 +48,6 @@ export default function Home() {
                     })
                     .then((res) => {
                       drawingId.current = res.data.drawing.id;
-                      if (resetAfterSave) {
-                        setPixelColors(createBlankArray(16));
-                        title.current = nameGen();
-                      }
                       setToastPopup(true);
                     });
                 }}
@@ -104,7 +100,13 @@ export default function Home() {
         <ToastPopup
           pixelColors={pixelColors}
           drawingId={drawingId.current}
-          closePopup={() => setToastPopup(false)}
+          closePopup={() => {
+            setToastPopup(false);
+            if (resetAfterSave) {
+              setPixelColors(createBlankArray(16));
+              title.current = nameGen();
+            }
+          }}
         />
       )}
     </div>
